@@ -1,0 +1,49 @@
+﻿@model Order.UI.Models.OrderModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script>
+
+    function placeOrder() {
+        var name = $('#order-name').val();
+        if (name.trim() === '') {
+            alert('Oops, please enter a name.');
+            return;
+        }
+        var orderButton = $('#order-button');
+        orderButton.addClass('disabled');
+        orderButton.text('Please Wait...');
+
+        $.post('/home/order?name=' + name)
+            .fail(function () { alert('something bad happened!') })
+            .success(function (result) {
+                $('#order-info').fadeIn();
+                $('#order-info-name').html('Thanks for ordering, ' + name);
+                $('#order-info-id').html('Your order id is <strong>' + result.OrderId + '</strong>');
+            })
+            .done(function () {
+                orderButton.removeClass('disabled');
+                orderButton.text('Place Order');
+            });
+    }
+
+</script>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Dog Shoes</h1>
+            <p class="lead">Enter your name to order dog shoes now!</p>
+            <p>
+                <input id="order-name" class="input-lg" type="text" name="name" value="" /> <button id="order-button" onclick="placeOrder()" class="btn btn-primary btn-lg">Place Order &raquo;</button>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <div id="order-info" style="display: none;">
+                <h2 id="order-info-name"></h2>
+                <h4 class="alert alert-info" id="order-info-id"></h4>
+            </div>
+        </div>
+    </div>
+</div>
