@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.ObjectBuilder.Autofac</name>
+    </assembly>
+    <members>
+        <member name="T:NServiceBus.AutofacBuilder">
+            <summary>
+            Autofac Container
+            </summary>
+        </member>
+        <member name="M:NServiceBus.AutofacBuilder.CreateContainer(NServiceBus.Settings.ReadOnlySettings)">
+            <summary>
+                Implementers need to new up a new container.
+            </summary>
+            <param name="settings">The settings to check if an existing container exists.</param>
+            <returns>The new container wrapper.</returns>
+        </member>
+        <member name="T:NServiceBus.AutofacExtensions">
+            <summary>
+            Autofac extension to pass an existing Autofac container instance.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.AutofacExtensions.ExistingLifetimeScope(NServiceBus.Container.ContainerCustomizations,Autofac.ILifetimeScope)">
+            <summary>
+            Use the a pre-configured AutoFac lifetime scope.
+            </summary>
+            <param name="customizations"></param>
+            <param name="lifetimeScope">The existing lifetime scope to use.</param>
+        </member>
+    </members>
+</doc>

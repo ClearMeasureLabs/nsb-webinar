@@ -1,15 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
+using NServiceBus;
+using Order.Contracts;
 using Order.UI.Models;
 
 namespace Order.UI.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IBus _bus;
+
+        public HomeController(IBus bus)
+        {
+            _bus = bus;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -18,8 +25,9 @@ namespace Order.UI.Controllers
         [HttpPost]
         public ActionResult Order(string name)
         {
-            Thread.Sleep(3000);
-            return Json(new OrderModel { Name = name, OrderId = Guid.NewGuid() });
+            var orderId = Guid.NewGuid();
+            _bus.Send(new PlaceOrder {CustomerId = name, OrderId = orderId});
+            return Json(new OrderModel { Name = name, OrderId = orderId });
         }
     }
 }
