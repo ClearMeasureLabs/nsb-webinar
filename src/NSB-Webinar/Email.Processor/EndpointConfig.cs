@@ -7,6 +7,7 @@ namespace Email.Processor
     {
         public void Customize(BusConfiguration configuration)
         {
+        	System.Console.Title = "Email Processor";
             configuration.UseSerialization<JsonSerializer>();
             configuration.EndpointName("Email.Processor");
             configuration.UseTransport<MsmqTransport>();
