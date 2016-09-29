@@ -6,6 +6,7 @@ namespace Order.Processor
     {
         public void Customize(BusConfiguration configuration)
         {
+            System.Console.Title = "Order Processor";
             configuration.UseSerialization<JsonSerializer>();
             configuration.EndpointName("Order.Processor");
             configuration.UseTransport<MsmqTransport>();
